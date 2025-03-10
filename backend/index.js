@@ -28,6 +28,7 @@ async function run() {
    
         await client.connect();
         const  teaCollection=client.db("teaStore").collection("tea");
+        const userCollection=client.db("teaStore").collection("user");
 
 
         app.get('/tea/:id',async(req,res)=>{
@@ -68,6 +69,17 @@ async function run() {
             const query={_id: new ObjectId(id)};
             console.log('delete',id);
             const result=await teaCollection.deleteOne(query);
+            res.send(result);
+        })
+    //    ⁡⁢⁢⁢user collection⁡
+         app.get('/user',async(req,res)=>{
+            const cursor=userCollection.find();
+            const user=await cursor.toArray();
+            res.send(user);
+         })
+        app.post('/user',async(req,res)=>{
+            const user=req.body;
+            const result=await userCollection.insertOne(user);
             res.send(result);
         })
      

@@ -14,6 +14,8 @@ import SignIn from './components/SignIn'
 import AllTea from './components/AllTea'
 import UpdateTea from './components/UpdateTea'
 import TeaDetails from './TeaDetails'
+import AuthProvider from './Provider/AuthProvider'
+import User from './components/User'
 const router = createBrowserRouter([
   {
     path: '/',
@@ -41,11 +43,16 @@ const router = createBrowserRouter([
     path:'/teadetails/:id',
     element:<TeaDetails></TeaDetails>,
     loader:({params})=>fetch(`http://localhost:7000/tea/${params.id}`)
+  },
+  {
+    path:'user',
+    element:<User></User>,
+    loader:()=> fetch('http://localhost:7000/user')
   }
 ])
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={router}/>
+   <AuthProvider> <RouterProvider router={router}/></AuthProvider>
   </StrictMode>,
 )

@@ -1,13 +1,28 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../Provider/AuthProvider';
 
 const Heade = () => {
+    const {user,logOut}=useContext(AuthContext)
+    console.log('user',user);
     const links=<>
      <li><NavLink to='/addtea' className='hover:bg-green-500 bg-white mr-3'>Add Tea</NavLink></li>
      <li><NavLink to='/signup'  className='hover:bg-green-500 bg-white mr-3'>SignUp</NavLink></li>
      <li><NavLink to='/signin'  className='hover:bg-green-500 bg-white'>Login</NavLink></li>
+     <li><NavLink to='/user'  className='hover:bg-green-500 ml-2 bg-white'>User</NavLink></li>
     
     </>
+    const navigate=useNavigate();
+    const handleSignOut=async()=>{
+        try {
+            await logOut();
+            navigate('/signin');
+        } catch (error) {
+            console.error('Error signing out:', error);
+        }
+
+    }
+   
     return (
         <div className="navbar bg-gradient-to-r from-green-400 via-green-300 to-green-400 shadow-sm">
         <div className="navbar-start">
@@ -29,7 +44,12 @@ const Heade = () => {
           </ul>
         </div>
         <div className="navbar-end">
-          <a className="btn">Button</a>
+          {
+            user?<>
+            <a className="btn mr-2">{user.email}</a>
+            <NavLink onClick={handleSignOut} to='/logout' className='btn hover:bg-green-500 bg-white'>Logout</NavLink>
+            </> :<Link to='/signin' className='hover:bg-green-500 btn bg-white'>Login</Link>
+          }
         </div>
       </div>
     );
