@@ -9,8 +9,12 @@ const Heade = () => {
      <li><NavLink to='/addtea' className='hover:bg-green-500 bg-white mr-3'>Add Tea</NavLink></li>
      <li><NavLink to='/signup'  className='hover:bg-green-500 bg-white mr-3'>SignUp</NavLink></li>
      <li><NavLink to='/signin'  className='hover:bg-green-500 bg-white'>Login</NavLink></li>
-     <li><NavLink to='/user'  className='hover:bg-green-500 ml-2 bg-white'>User</NavLink></li>
+    {
+        user && <>
+         <li><NavLink to='/user'  className='hover:bg-green-500 ml-2 bg-white'>User</NavLink></li>
     
+        </>
+    }
     </>
     const navigate=useNavigate();
     const handleSignOut=async()=>{
@@ -46,7 +50,10 @@ const Heade = () => {
         <div className="navbar-end">
           {
             user?<>
-            <a className="btn mr-2">{user.email}</a>
+            <div className="flex items-center">
+                            <span className="btn mr-2">{user.email}</span>
+                            {user.photoURL && <img src={user.photoURL} alt="User Avatar" className="w-8 h-8 rounded-full" />}
+                        </div>
             <NavLink onClick={handleSignOut} to='/logout' className='btn hover:bg-green-500 bg-white'>Logout</NavLink>
             </> :<Link to='/signin' className='hover:bg-green-500 btn bg-white'>Login</Link>
           }

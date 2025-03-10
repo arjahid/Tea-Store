@@ -16,6 +16,7 @@ import UpdateTea from './components/UpdateTea'
 import TeaDetails from './TeaDetails'
 import AuthProvider from './Provider/AuthProvider'
 import User from './components/User'
+import PrivateRouter from './router/PrivateRouter'
 const router = createBrowserRouter([
   {
     path: '/',
@@ -24,7 +25,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/addtea',
-    element:<AddTea></AddTea>
+    element:<PrivateRouter><AddTea></AddTea></PrivateRouter>
   },
   {
     path: '/signup',
@@ -46,7 +47,7 @@ const router = createBrowserRouter([
   },
   {
     path:'user',
-    element:<User></User>,
+    element:<PrivateRouter><User></User></PrivateRouter>,
     loader:()=> fetch('http://localhost:7000/user')
   }
 ])

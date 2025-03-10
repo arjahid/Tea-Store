@@ -1,10 +1,11 @@
 import React, { useContext } from 'react';
 import Heade from './Heade';
-import { Link, useLoaderData } from 'react-router-dom';
+import { Link, useLoaderData, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../Provider/AuthProvider';
 
 const SignIn = () => {
     const {signIn}=useContext(AuthContext)
+    const navigate=useNavigate()
     const handleLogin=(e)=>{
         e.preventDefault();
         const email=e.target.email.value;
@@ -16,6 +17,8 @@ const SignIn = () => {
             console.log(result);
             if(result.user){
                 alert('User logged in successfully');
+                navigate('/')
+
             }
 
         })

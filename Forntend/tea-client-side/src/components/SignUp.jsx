@@ -1,10 +1,11 @@
 import React, { useContext } from "react";
 import Heade from "./Heade";
 import { AuthContext } from "../Provider/AuthProvider";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const SignUp = () => {
     const {createUser}=useContext(AuthContext)
+    const navigate=useNavigate()
     const handleFormSubmit = (e) => {
         e.preventDefault();
        const form=e.target;
@@ -29,6 +30,7 @@ const SignUp = () => {
                 console.log(data);
                 if(data.insertedId){
                     alert('User created successfully');}
+                    navigate('/')
                 })
         })
         .catch(error=>console.log(error))
@@ -63,7 +65,7 @@ const SignUp = () => {
                 <div>
                   <a className="link link-hover">Forgot password?</a>
                 </div>
-                <button className="btn btn-accent mt-4">Login</button>
+                <button className="btn btn-accent mt-4">Sign UP</button>
               </form>
               <p>Already have an accoutn? <Link to='/signin'><span className="text-green-500">Log in</span></Link></p>
             </div>
